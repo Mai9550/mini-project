@@ -1,0 +1,2 @@
+# This just makes sure git ignores the node_modules folder as it should go into your repo
+node_modules
