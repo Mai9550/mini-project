@@ -49,7 +49,7 @@ handleFetchRandomImage = () => {
           {showQrCode && <QR catImageUrl={catImageUrl} qrUrl={qrUrl}/>}
 
           <button className="QRButton" onClick={this.handleShowQrCode}>
-            Geanerate QR
+            Generate QR
           </button>
 
         </div>
