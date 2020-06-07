@@ -8,51 +8,37 @@ class Form extends React.Component{
 	this.state = {
   	photoData:'',
   	email: ''
-	}
+  }
+  
   }
   handle(e){
     e.preventDefault();
-    const{qrUrl}=this.props.qrUrl;
-    axios.get(`${qrUrl}`)
-  .then(
-    (response) => response.json()
-  ).then((data) => {
-    this.setState({
-      photoData:data
-  }).then({
-      method: "POST", 
-      url:"http://localhost:3000/send", 
-      data:  this.state.photoData
-    }).then((response)=>{
-      if (response.data.status === 'success'){
-        alert("Message Sent."); 
-        this.resetForm()
-      }else if(response.data.status === 'fail'){
-        alert("Message failed to send.")
-      }
-    })
+    console.log(this.state.email);
+    const qrUrl=this.props.qrUrl;
+    console.log(this.props.qrUrl);
+    console.log(qrUrl);
+  this.sendToServer(this.state.email,qrUrl)
   
-   });
+   
+  }
+  sendToServer(email,link){
+    axios({method: "POST", 
+    url:"http://localhost:3001/api/sendMail", 
+    data: {link:link,email:"mai.sa2sa2@gmail.com"
+  }}).then((response)=>{
+    if (response.data.status === 'success'){
+      alert("Message Sent."); 
+      this.resetForm()
+    }else if(response.data.status === 'fail'){
+      alert("Message failed to send.")
+    }
+  })
   }
   
   
   
 
-  handleSubmit(e){
-    e.preventDefault();
-    axios.post({
-      method: "POST", 
-      url:"http://localhost:3002/send", 
-      data:  this.state
-    }).then((response)=>{
-      if (response.data.status === 'success'){
-        alert("Message Sent."); 
-        this.resetForm()
-      }else if(response.data.status === 'fail'){
-        alert("Message failed to send.")
-      }
-    });
-  }
+
 
   
   
@@ -62,14 +48,14 @@ class Form extends React.Component{
   
      return(
   	<div className="App">
-  	<form id="contact-form" onSubmit={this.handleSubmit.bind(this)} onClick={this.handle.bind(this)} method="POST">
+  	<form id="contact-form"   >
   	
       	
   	<div className="form-group">
       	<label htmlFor="exampleInputEmail1">Email address</label>
         <input type="email" className="form-control" id="email" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)}  />
   	</div>
-  	
+  	<button onClick={this.handle.bind(this)}>submit</button>
   	
   	</form>
   	</div>

@@ -1,9 +1,7 @@
-import nodemailer from 'nodemailer';
-
 
 const nodemailer = require('nodemailer');
 
-const sendEmail=(to,name,type)=>{
+const sendEmail=(to)=>{
 const smtpTransport=nodemailer.createTransport({
     service:'gmail',
     auth:{
@@ -21,6 +19,8 @@ smtpTransport.sendEmail(mail,function(error,response){
     smtpTransport.close();
 }
 }
+
+
 
 
 export default sendEmail;
